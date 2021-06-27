@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSC.Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20210626170742_Criacao-Projeto")]
+    [Migration("20210627215715_Criacao-Projeto")]
     partial class CriacaoProjeto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace DSC.Auth.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateCreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateExpiration")
@@ -60,6 +63,9 @@ namespace DSC.Auth.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")

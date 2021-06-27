@@ -1,5 +1,4 @@
 ﻿using DSC.Auth.API.Application.Messages.Commands.UserCommand;
-using DSC.Auth.Domain.Repositories;
 using DSC.Core.Mediator;
 using DSC.MessageBus;
 using DSC.MessageBus.Integration;
@@ -52,7 +51,7 @@ namespace DSC.Auth.API.Application.Messages.ConsumersBus
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediatorHandler>();
 
                 var t = Task.Run(() => mediator.SendCommand(command));
-                t.Wait();                
+                t.Wait();
             }
         }
     }

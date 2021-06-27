@@ -34,7 +34,7 @@ namespace DSC.Auth.API.Application.Messages.Commands.UserCommand
         public async Task<BaseResult> Handle(AddUserCommand command, CancellationToken cancellationToken)
         {
             if (!command.Validate()) return command.BaseResult;
-            
+
             var isIncluded = await _userRepository.GetByUserNameAsync(command.Email);
 
             if (isIncluded != null)

@@ -2,7 +2,7 @@
 {
     public enum EntityStatusEnum
     {
-        Ativa = 0,
-        Inativa = 1,
+        Active = 0,
+        Inactive = 1,
     }
 }

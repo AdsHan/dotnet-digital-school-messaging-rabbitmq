@@ -14,7 +14,7 @@ namespace DSC.Student.API.Configuration
     {
         public static void AddDependencyConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            
+
             // Usando com banco de dados em memória
             services.AddDbContext<StudentDbContext>(options => options.UseInMemoryDatabase("DigitalSchoolServices"));
             // Usando com SqlServer

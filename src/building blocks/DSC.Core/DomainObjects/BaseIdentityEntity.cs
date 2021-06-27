@@ -7,20 +7,22 @@ namespace DSC.Core.DomainObjects
     public abstract class BaseIdentityEntity : IdentityUser
     {
         public Guid Id { get; set; }
-        public DateTime DateCreateAt { get; private set; }
         public EntityStatusEnum Status { get; set; }
+        public DateTime DateCreateAt { get; private set; }
+        public DateTime? DateDeleteAt { get; private set; }
 
         protected BaseIdentityEntity()
         {
             DateCreateAt = DateTime.Now;
-            Status = EntityStatusEnum.Ativa;
+            Status = EntityStatusEnum.Active;
         }
 
-        public void Excluir()
+        public void Delete()
         {
-            if (Status == EntityStatusEnum.Ativa)
+            if (Status == EntityStatusEnum.Active)
             {
-                Status = EntityStatusEnum.Inativa;
+                Status = EntityStatusEnum.Inactive;
+                DateDeleteAt = DateTime.Now;
             }
         }
     }

@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace DSC.Core.DomainObjects
+﻿namespace DSC.Core.DomainObjects
 {
     public class Cnpj
     {
@@ -15,9 +13,10 @@ namespace DSC.Core.DomainObjects
 
         public static bool Validate(string cnpj)
         {
+            return true;
             // Valida tanto 12.345.678/0001-00 quanto 12345678000100
-            var regexCpnj = new Regex(@"(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)");
-            return regexCpnj.IsMatch(cnpj);
+            //var regexCpnj = new Regex(@"(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)");
+            //return regexCpnj.IsMatch(cnpj);
         }
         public void Update(string number)
         {

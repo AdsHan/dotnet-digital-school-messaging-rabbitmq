@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSC.Student.Infrastructure.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    [Migration("20210626170904_Criacao-Projeto")]
+    [Migration("20210627215843_Criacao-Projeto")]
     partial class CriacaoProjeto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,9 @@ namespace DSC.Student.Infrastructure.Migrations
                         .HasColumnType("varchar(250)");
 
                     b.Property<DateTime>("DateCreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("District")
@@ -74,6 +77,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     b.Property<DateTime>("DateCreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateDeleteAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
@@ -110,6 +116,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     b.Property<DateTime>("DateCreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateDeleteAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -137,6 +146,9 @@ namespace DSC.Student.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateCreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -167,6 +179,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     b.Property<DateTime>("DateCreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateDeleteAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -193,6 +208,9 @@ namespace DSC.Student.Infrastructure.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<DateTime>("DateCreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("NoteId")
@@ -247,6 +265,9 @@ namespace DSC.Student.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateCreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")

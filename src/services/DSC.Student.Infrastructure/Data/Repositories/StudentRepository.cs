@@ -21,7 +21,7 @@ namespace DSC.Student.Infrastructure.Data.Repositories
         public async Task<AdressModel> GetAdressByIdAsync(Guid id)
         {
             return await _dbContext.Adresses
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
@@ -29,14 +29,14 @@ namespace DSC.Student.Infrastructure.Data.Repositories
         {
             return await _dbContext.Guardians
                 .Include(a => a.Note)
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task<StudentModel> GetByCpfAsync(string cpf)
         {
             return await _dbContext.Students
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Cpf.Number == cpf);
         }
@@ -44,7 +44,7 @@ namespace DSC.Student.Infrastructure.Data.Repositories
         public async Task<StudentModel> GetByIdAsync(Guid id)
         {
             return await _dbContext.Students
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .Include(x => x.StudentsGuardians).ThenInclude(i => i.Guardian)
                 .Include(a => a.Note)
                 .Include(a => a.Adress)
@@ -57,7 +57,7 @@ namespace DSC.Student.Infrastructure.Data.Repositories
         public async Task<StudentModel> GetByRgAsync(string rg)
         {
             return await _dbContext.Students
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Rg.Number == rg);
         }
@@ -65,7 +65,7 @@ namespace DSC.Student.Infrastructure.Data.Repositories
         public async Task<List<StudentModel>> GetAllAsync()
         {
             return await _dbContext.Students
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .AsNoTracking()
                 .ToListAsync();
         }

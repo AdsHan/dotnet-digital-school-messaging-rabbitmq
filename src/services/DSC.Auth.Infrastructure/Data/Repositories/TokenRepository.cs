@@ -28,7 +28,7 @@ namespace DSC.Auth.Infrastructure.Data.Repositories
         public async Task<TokenModel> GetByUserNameAsync(string userName)
         {
             return await _dbContext.Tokens
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.UserName == userName);
         }
@@ -36,7 +36,7 @@ namespace DSC.Auth.Infrastructure.Data.Repositories
         public async Task<List<TokenModel>> GetAllAsync()
         {
             return await _dbContext.Tokens
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -44,7 +44,7 @@ namespace DSC.Auth.Infrastructure.Data.Repositories
         public async Task<TokenModel> GetByIdAsync(Guid id)
         {
             return await _dbContext.Tokens
-                .Where(a => a.Status == EntityStatusEnum.Ativa)
+                .Where(a => a.Status == EntityStatusEnum.Active)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }

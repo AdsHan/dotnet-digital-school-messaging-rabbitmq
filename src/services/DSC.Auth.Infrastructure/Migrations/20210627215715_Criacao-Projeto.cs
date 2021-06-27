@@ -40,8 +40,9 @@ namespace DSC.Auth.Infrastructure.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,8 +57,9 @@ namespace DSC.Auth.Infrastructure.Migrations
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateExpiration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -209,7 +211,7 @@ namespace DSC.Auth.Infrastructure.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
-            migrationBuilder.Sql("insert Tokens values(NEWID(), 'mario@gmail.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im1hcmlvQGdtYWlsLmNvbSIsImp0aSI6ImM3MTBjZjlhLTU4YzEtNDAxNy04ZTFlLWE2YjI2ZDUzZTRjOSIsImV4cCI6MTYyMzI2OTUzMSwiaXNzIjoiVGVzdGUiLCJhdWQiOiJUZXN0ZSJ9.15vHaGHq6Fi9wwqNssEVAAbydItTYNVpgPsnrAPPBFU', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1)");
+            migrationBuilder.Sql("insert Tokens values(NEWID(), 'mario@gmail.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im1hcmlvQGdtYWlsLmNvbSIsImp0aSI6ImM3MTBjZjlhLTU4YzEtNDAxNy04ZTFlLWE2YjI2ZDUzZTRjOSIsImV4cCI6MTYyMzI2OTUzMSwiaXNzIjoiVGVzdGUiLCJhdWQiOiJUZXN0ZSJ9.15vHaGHq6Fi9wwqNssEVAAbydItTYNVpgPsnrAPPBFU', CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP, null)");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

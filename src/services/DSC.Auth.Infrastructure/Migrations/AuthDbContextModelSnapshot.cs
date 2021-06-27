@@ -28,6 +28,9 @@ namespace DSC.Auth.Infrastructure.Migrations
                     b.Property<DateTime>("DateCreateAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateDeleteAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateExpiration")
                         .HasColumnType("datetime2");
 
@@ -58,6 +61,9 @@ namespace DSC.Auth.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")

@@ -19,8 +19,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     ZipCode = table.Column<string>(type: "varchar(20)", nullable: false),
                     City = table.Column<string>(type: "varchar(100)", nullable: false),
                     State = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,8 +34,9 @@ namespace DSC.Student.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "varchar(8000)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,8 +56,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     Phone = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: true),
                     CellPhone = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: true),
                     NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,8 +84,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     CellPhone = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: true),
                     NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AdressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,8 +113,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     Name = table.Column<string>(type: "varchar(200)", nullable: false),
                     SchoolId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -141,8 +146,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AdressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -175,8 +181,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     DataNote = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Text = table.Column<string>(type: "varchar(8000)", nullable: false),
                     StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     DateCreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    DateDeleteAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -273,8 +280,8 @@ namespace DSC.Student.Infrastructure.Migrations
                 table: "StudentsGuardian",
                 column: "GuardianId");
 
-            migrationBuilder.Sql("insert Schools values('A9E5B222-313C-4AE2-8E04-809C3CFF4A80', 'Miranda Escola', 'Escola dos Pequeninos', '12345678000100', 'pequeninos@gmail.com', '51 99999-9999', '51 99999-9999', null, null, CURRENT_TIMESTAMP, 1)");
-            migrationBuilder.Sql("insert Courses values('BCE4F473-3DFA-4FB9-8E1E-5997951F5485', 'Berçário II - 2021', null, null, CURRENT_TIMESTAMP, 1)");
+            migrationBuilder.Sql("insert Schools values('A9E5B222-313C-4AE2-8E04-809C3CFF4A80', 'Miranda Escola', 'Escola dos Pequeninos', '33904180000195', 'pequeninos@gmail.com', '51 99999-9999', '51 99999-9999', null, null, 1, CURRENT_TIMESTAMP, null)");
+            migrationBuilder.Sql("insert Courses values('BCE4F473-3DFA-4FB9-8E1E-5997951F5485', 'Berçário II - 2021', null, null, 1, CURRENT_TIMESTAMP, null)");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

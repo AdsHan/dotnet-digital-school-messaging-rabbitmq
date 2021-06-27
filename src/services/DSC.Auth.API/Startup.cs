@@ -34,7 +34,7 @@ namespace DSC.Auth.API
         {
             app.UseApiConfiguration(env);
 
-            app.UseSwaggerConfiguration();            
+            app.UseSwaggerConfiguration();
         }
     }
 }
