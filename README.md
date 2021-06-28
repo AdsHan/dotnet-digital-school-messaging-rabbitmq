@@ -18,6 +18,7 @@ Cenário: Aplicativo que envia um resumo diário para os pais/guardiões do dia 
 - DTO e AutoMapper;
 - Versionamento da API;
 - Swagger/Swagger UI;
+- Testes Unitários com Moq e xUnit (Padrões AAA e Given-When-Then)
 
 # Sobre Microsserviços:
 - O projeto é didático, logo aceita-se que os serviços não tenham BD heterogêneos e que estes persistam no mesmo.
