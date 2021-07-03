@@ -22,12 +22,16 @@ namespace DSC.Student.Domain.Entities
             Adress = new AdressModel();
             StudentsGuardians = new List<StudentGuardianModel>();
             DayNotes = new List<DayNoteModel>();
+            AuthCreate = false;
+            EmailAuthSend = false;
         }
 
         public string Name { get; private set; }
         public DateTime DateBirth { get; private set; }
         public Rg Rg { get; private set; }
         public Cpf Cpf { get; private set; }
+        public bool AuthCreate { get; private set; }
+        public bool EmailAuthSend { get; private set; }
 
         public Guid? CourseId { get; private set; }
         public Guid? AdressId { get; private set; }
@@ -64,6 +68,16 @@ namespace DSC.Student.Domain.Entities
             Cpf.Update(cpf);
             Note.Update(note);
             CourseId = courseId;
+        }
+
+        public void UpdateAuthCreate(bool created)
+        {
+            AuthCreate = created;
+        }
+
+        public void UpdateEmailAuthSend(bool created)
+        {
+            EmailAuthSend = created;
         }
 
     }

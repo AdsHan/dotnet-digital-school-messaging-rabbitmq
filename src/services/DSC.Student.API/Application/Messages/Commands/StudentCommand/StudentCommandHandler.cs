@@ -16,7 +16,8 @@ namespace DSC.Student.API.Application.Messages.Commands.StudentCommand
         IRequestHandler<AddStudentCommand, BaseResult>,
         IRequestHandler<UpdateStudentCommand, BaseResult>,
         IRequestHandler<DeleteStudentCommand, BaseResult>,
-        IRequestHandler<UpdateAdressStudentCommand, BaseResult>
+        IRequestHandler<UpdateAdressStudentCommand, BaseResult>,
+        IRequestHandler<CheckStudentUsersCreatedCommand, BaseResult>
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IMessageBusService _messageBusService;
@@ -60,13 +61,14 @@ namespace DSC.Student.API.Application.Messages.Commands.StudentCommand
             await _studentRepository.SaveAsync();
 
 
-            // Envia as mensagens para criar os usuários para os responsáveis
+            // Emite o evento para criação dos usuários dos guardiões
+            var user = new CreateUserIntegrationEvent();
+            user.Id = student.Id;
             foreach (var item in guardians)
             {
-                var user = new CreateUserGuardianEvent(item.Email.Address, "123456", item.CellPhone.Number);
-
-                _messageBusService.Publish(QueueType.NEW_USER, user);
+                user.AddGuardian(item.Email.Address, "123456", item.CellPhone.Number);
             }
+            _messageBusService.Publish(QueueType.NEW_USER, user);
 
             BaseResult.response = student.Id;
 
@@ -179,5 +181,27 @@ namespace DSC.Student.API.Application.Messages.Commands.StudentCommand
 
             return BaseResult;
         }
+        public async Task<BaseResult> Handle(CheckStudentUsersCreatedCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.Validate()) return command.BaseResult;
+
+            var student = await _studentRepository.GetByIdAsync(command.StudentId);
+
+            if (student == null)
+            {
+                AddError("Não foi possível localizar o aluno!");
+                return BaseResult;
+            }
+
+            student.UpdateAuthCreate(true);
+
+            _studentRepository.Update(student);
+
+            await _studentRepository.SaveAsync();
+
+            return BaseResult;
+        }
+
     }
+
 }

@@ -10,6 +10,7 @@ namespace DSC.Student.API.Application.DTO
         public DateTime DateBirth { get; set; }
         public Rg Rg { get; set; }
         public Cpf Cpf { get; set; }
-
+        public bool AuthCreate { get; private set; }
+        public bool EmailAuthSend { get; private set; }
     }
 }

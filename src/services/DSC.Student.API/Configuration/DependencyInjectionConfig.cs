@@ -12,7 +12,7 @@ namespace DSC.Student.API.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static void AddDependencyConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDependencyConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
 
             // Usando com banco de dados em memória
@@ -26,6 +26,8 @@ namespace DSC.Student.API.Configuration
             // services.AddScoped<IRequestHandler<AddStudentCommand, ValidationResult>, StudentCommandHandler>();
             // services.AddScoped<IRequestHandler<AddStudentCommand, ValidationResult>, StudentCommandHandler>();
             services.AddMediatR(typeof(AddStudentCommand));
+
+            return services;
         }
     }
 }

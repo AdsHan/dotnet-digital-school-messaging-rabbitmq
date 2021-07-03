@@ -9,7 +9,7 @@ namespace DSC.Auth.API.Configuration
     {
         public static void AddMessageBusConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMessageBus(configuration.GetConnectionString("RabbitMQCs")).AddHostedService<CreateUserGuardianConsumer>();
+            services.AddMessageBus(configuration.GetConnectionString("RabbitMQCs")).AddHostedService<CreateUserConsumer>();
         }
     }
 }

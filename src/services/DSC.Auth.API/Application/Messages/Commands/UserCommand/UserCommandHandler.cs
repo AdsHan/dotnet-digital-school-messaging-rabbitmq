@@ -5,7 +5,7 @@ using DSC.Auth.Infrastructure.Data;
 using DSC.Core.Commands;
 using DSC.Core.Communication;
 using MediatR;
-using Microsoft.Extensions.Configuration;
+using RTO.Auth.API.Extensions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,17 +18,16 @@ namespace DSC.Auth.API.Application.Messages.Commands.UserCommand
     {
         private readonly IUserRepository _userRepository;
         private readonly ITokenRepository _tokenRepository;
-        private readonly IConfiguration _configuration;
-
+        private readonly TokenSettings _tokenSettings;
 
         private readonly AuthDbContext _dbContext;
 
-        public UserCommandHandler(IUserRepository userRepository, ITokenRepository tokenRepository, IConfiguration configuration, AuthDbContext dbContext)
+        public UserCommandHandler(IUserRepository userRepository, ITokenRepository tokenRepository, AuthDbContext dbContext, TokenSettings tokenSettings)
         {
             _userRepository = userRepository;
             _tokenRepository = tokenRepository;
-            _configuration = configuration;
             _dbContext = dbContext;
+            _tokenSettings = tokenSettings;
         }
 
         public async Task<BaseResult> Handle(AddUserCommand command, CancellationToken cancellationToken)
@@ -78,9 +77,9 @@ namespace DSC.Auth.API.Application.Messages.Commands.UserCommand
 
             if (result.Succeeded)
             {
-                var expiration = _configuration["TokenConfiguration:ExpireHours"];
+                var expiration = _tokenSettings.ExpireHours;
                 var token = _tokenRepository.GenerateToken(command.Email);
-                var expirationDate = DateTime.UtcNow.AddHours(double.Parse(expiration));
+                var expirationDate = DateTime.UtcNow.AddHours(expiration);
 
                 var tokenModel = new TokenModel(command.Email, token, expirationDate);
                 _tokenRepository.Add(tokenModel);

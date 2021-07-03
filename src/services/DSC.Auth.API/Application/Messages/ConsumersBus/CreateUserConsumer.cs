@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace DSC.Auth.API.Application.Messages.ConsumersBus
 {
-    public class CreateUserGuardianConsumer : BackgroundService, ICreateUserGuardianConsumer
+    public class CreateUserConsumer : BackgroundService, ICreateUserConsumer
     {
 
         private readonly IMessageBusService _messageBusService;
         private readonly IServiceProvider _serviceProvider;
 
-        public CreateUserGuardianConsumer(IMessageBusService messageBusService, IServiceProvider serviceProvider)
+        public CreateUserConsumer(IMessageBusService messageBusService, IServiceProvider serviceProvider)
         {
             _messageBusService = messageBusService;
             _serviceProvider = serviceProvider;
@@ -35,23 +35,29 @@ namespace DSC.Auth.API.Application.Messages.ConsumersBus
         {
             var byteArray = message.Body.ToArray();
             var messageString = Encoding.UTF8.GetString(byteArray);
-            var user = JsonConvert.DeserializeObject<CreateUserGuardianEvent>(messageString);
+            var user = JsonConvert.DeserializeObject<CreateUserIntegrationEvent>(messageString);
 
             // Eu crio um scopo pois esta classe foi injetada com AddHo
             using (var scope = _serviceProvider.CreateScope())
             {
 
-                var command = new AddUserCommand
+                foreach (var item in user.Guardians)
                 {
-                    Email = user.Email,
-                    Password = user.Password,
-                    Phone = user.Phone
-                };
+                    var command = new AddUserCommand
+                    {
+                        Email = item.Email,
+                        Password = item.Password,
+                        Phone = item.Phone
+                    };
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediatorHandler>();
+                    var t = Task.Run(() => mediator.SendCommand(command));
+                    t.Wait();
+                }
 
-                var mediator = scope.ServiceProvider.GetRequiredService<IMediatorHandler>();
+                // Emite o evento para criação dos usuários dos guardiões
+                var created = new UserCreatedOkIntegrationEvent(user.Id);                
+                _messageBusService.Publish(QueueType.CREATED_OK, user);
 
-                var t = Task.Run(() => mediator.SendCommand(command));
-                t.Wait();
             }
         }
     }

@@ -15,7 +15,7 @@ namespace DSC.Auth.API.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static void AddDependencyConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDependencyConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
 
             // Usando com banco de dados em memória
@@ -44,6 +44,8 @@ namespace DSC.Auth.API.Configuration
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
             services.AddMediatR(typeof(AddUserCommand));
+
+            return services;
         }
 
     }

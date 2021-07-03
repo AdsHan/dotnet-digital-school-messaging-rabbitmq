@@ -5,7 +5,6 @@ using DSC.Auth.API.Application.Messages.Queries.UserQuery;
 using DSC.Auth.Domain.Entities;
 using DSC.Auth.Domain.Repositories;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

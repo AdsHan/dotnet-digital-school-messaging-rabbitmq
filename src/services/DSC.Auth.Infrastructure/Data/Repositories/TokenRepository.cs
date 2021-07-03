@@ -2,8 +2,8 @@
 using DSC.Auth.Domain.Repositories;
 using DSC.Core.Enums;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using RTO.Auth.API.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,12 +17,12 @@ namespace DSC.Auth.Infrastructure.Data.Repositories
     public class TokenRepository : ITokenRepository
     {
         private readonly AuthDbContext _dbContext;
-        private readonly IConfiguration _configuration;
+        private readonly TokenSettings _tokenSettings;
 
-        public TokenRepository(AuthDbContext dbContext, IConfiguration configuration)
+        public TokenRepository(AuthDbContext dbContext, TokenSettings tokenSettings)
         {
             _dbContext = dbContext;
-            _configuration = configuration;
+            _tokenSettings = tokenSettings;
         }
 
         public async Task<TokenModel> GetByUserNameAsync(string userName)
@@ -81,19 +81,19 @@ namespace DSC.Auth.Infrastructure.Data.Repositories
              };
 
             // Gera uma chave
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:key"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenSettings.SecretJWTKey));
 
             // Gera a assinatura digital do token
             var credenciais = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             // Tempo de expiracão do token
-            var expiracao = _configuration["TokenConfiguration:ExpireHours"];
-            var expiration = DateTime.UtcNow.AddHours(double.Parse(expiracao));
+            var expiracao = _tokenSettings.ExpireHours;
+            var expiration = DateTime.UtcNow.AddHours(expiracao);
 
             // Gera o token
             JwtSecurityToken token = new JwtSecurityToken(
-              issuer: _configuration["TokenConfiguration:Issuer"],
-              audience: _configuration["TokenConfiguration:Audience"],
+              issuer: _tokenSettings.Issuer,
+              audience: _tokenSettings.Audience,
               claims: claims,
               expires: expiration,
               signingCredentials: credenciais);

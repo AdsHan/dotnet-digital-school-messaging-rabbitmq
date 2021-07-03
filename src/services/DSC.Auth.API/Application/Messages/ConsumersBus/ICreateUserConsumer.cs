@@ -2,7 +2,7 @@
 
 namespace DSC.Auth.API.Application.Messages.ConsumersBus
 {
-    public interface ICreateUserGuardianConsumer : IConsumer
+    public interface ICreateUserConsumer : IConsumer
     {
 
     }
