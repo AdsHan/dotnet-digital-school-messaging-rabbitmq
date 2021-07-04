@@ -5,6 +5,8 @@ using DSC.Auth.Infrastructure.Data;
 using DSC.Auth.Infrastructure.Data.Repositories;
 using DSC.Core.Extensions;
 using DSC.Core.Mediator;
+using DSC.IntegrationEventLog.Data;
+using DSC.IntegrationEventLog.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +22,11 @@ namespace DSC.Auth.API.Configuration
 
             // Usando com banco de dados em memória
             services.AddDbContext<AuthDbContext>(options => options.UseInMemoryDatabase("DigitalSchoolServices"));
+            services.AddDbContext<IntegrationEventLogDbContext>(options => options.UseInMemoryDatabase("DigitalSchoolServices"));
+
             // Usando com SqlServer
-            // services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SQLServerCs")));
+            //services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SQLServerCs")));
+            //services.AddDbContext<IntegrationEventLogDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SQLServerCs")));
 
             services.AddIdentity<UserModel, IdentityRole>(options =>
                 {
@@ -42,6 +47,8 @@ namespace DSC.Auth.API.Configuration
             services.AddScoped<ITokenRepository, TokenRepository>();
 
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+
+            services.AddScoped<IIntegrationEventLogService, IntegrationEventLogService>();
 
             services.AddMediatR(typeof(AddUserCommand));
 

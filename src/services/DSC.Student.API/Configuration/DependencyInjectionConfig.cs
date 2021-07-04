@@ -1,4 +1,6 @@
 ﻿using DSC.Core.Mediator;
+using DSC.IntegrationEventLog.Data;
+using DSC.IntegrationEventLog.Services;
 using DSC.Student.API.Application.Messages.Commands.StudentCommand;
 using DSC.Student.Domain.Repositories;
 using DSC.Student.Infrastructure.Data;
@@ -17,11 +19,16 @@ namespace DSC.Student.API.Configuration
 
             // Usando com banco de dados em memória
             services.AddDbContext<StudentDbContext>(options => options.UseInMemoryDatabase("DigitalSchoolServices"));
+            services.AddDbContext<IntegrationEventLogDbContext>(options => options.UseInMemoryDatabase("DigitalSchoolServices"));
+
             // Usando com SqlServer
-            // services.AddDbContext<StudentDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SQLServerCs")));
+            //services.AddDbContext<StudentDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SQLServerCs")));
+            //services.AddDbContext<IntegrationEventLogDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SQLServerCs")));
 
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+
+            services.AddScoped<IIntegrationEventLogService, IntegrationEventLogService>();
 
             // services.AddScoped<IRequestHandler<AddStudentCommand, ValidationResult>, StudentCommandHandler>();
             // services.AddScoped<IRequestHandler<AddStudentCommand, ValidationResult>, StudentCommandHandler>();

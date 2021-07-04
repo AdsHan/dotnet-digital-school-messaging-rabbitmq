@@ -3,7 +3,7 @@ using System;
 
 namespace DSC.Auth.Infrastructure.Migrations
 {
-    public partial class CriacaoProjeto : Migration
+    public partial class Criacao_Projeto : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

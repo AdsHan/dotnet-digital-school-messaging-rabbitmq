@@ -3,7 +3,7 @@ using System;
 
 namespace DSC.Student.Infrastructure.Migrations
 {
-    public partial class CriacaoProjeto : Migration
+    public partial class Criacao_Projeto : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -143,6 +143,8 @@ namespace DSC.Student.Infrastructure.Migrations
                     DateBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Rg = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
+                    AuthCreate = table.Column<bool>(type: "bit", nullable: false),
+                    EmailAuthSend = table.Column<bool>(type: "bit", nullable: false),
                     CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     AdressId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -282,6 +284,7 @@ namespace DSC.Student.Infrastructure.Migrations
 
             migrationBuilder.Sql("insert Schools values('A9E5B222-313C-4AE2-8E04-809C3CFF4A80', 'Miranda Escola', 'Escola dos Pequeninos', '33904180000195', 'pequeninos@gmail.com', '51 99999-9999', '51 99999-9999', null, null, 1, CURRENT_TIMESTAMP, null)");
             migrationBuilder.Sql("insert Courses values('BCE4F473-3DFA-4FB9-8E1E-5997951F5485', 'Berçário II - 2021', null, null, 1, CURRENT_TIMESTAMP, null)");
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

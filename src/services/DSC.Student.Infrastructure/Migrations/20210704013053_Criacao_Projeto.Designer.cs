@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSC.Student.Infrastructure.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    [Migration("20210627215843_Criacao-Projeto")]
-    partial class CriacaoProjeto
+    [Migration("20210704013053_Criacao_Projeto")]
+    partial class Criacao_Projeto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -258,6 +258,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     b.Property<Guid?>("AdressId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("AuthCreate")
+                        .HasColumnType("bit");
+
                     b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
@@ -269,6 +272,9 @@ namespace DSC.Student.Infrastructure.Migrations
 
                     b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("EmailAuthSend")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

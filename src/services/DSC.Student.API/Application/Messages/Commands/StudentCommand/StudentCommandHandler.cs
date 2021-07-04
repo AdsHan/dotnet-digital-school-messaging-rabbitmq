@@ -1,10 +1,12 @@
 ﻿using DSC.Core.Commands;
 using DSC.Core.Communication;
+using DSC.IntegrationEventLog.Services;
 using DSC.MessageBus;
 using DSC.MessageBus.Integration;
 using DSC.Student.Domain.Entities;
 using DSC.Student.Domain.Repositories;
 using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -19,13 +21,17 @@ namespace DSC.Student.API.Application.Messages.Commands.StudentCommand
         IRequestHandler<UpdateAdressStudentCommand, BaseResult>,
         IRequestHandler<CheckStudentUsersCreatedCommand, BaseResult>
     {
+        private Guid idEvent;
+
         private readonly IStudentRepository _studentRepository;
         private readonly IMessageBusService _messageBusService;
+        private readonly IIntegrationEventLogService _integrationEventLogService;
 
-        public StudentCommandHandler(IStudentRepository studentRepository, IMessageBusService messageBusService)
+        public StudentCommandHandler(IStudentRepository studentRepository, IMessageBusService messageBusService, IIntegrationEventLogService integrationEventLogService)
         {
             _studentRepository = studentRepository;
             _messageBusService = messageBusService;
+            _integrationEventLogService = integrationEventLogService;
         }
 
         public async Task<BaseResult> Handle(AddStudentCommand command, CancellationToken cancellationToken)
@@ -58,19 +64,30 @@ namespace DSC.Student.API.Application.Messages.Commands.StudentCommand
 
             _studentRepository.Add(student);
 
-            await _studentRepository.SaveAsync();
-
-
             // Emite o evento para criação dos usuários dos guardiões
-            var user = new CreateUserIntegrationEvent();
-            user.Id = student.Id;
+            var evt = new CreateUserIntegrationEvent(student.Id);
             foreach (var item in guardians)
             {
-                user.AddGuardian(item.Email.Address, "123456", item.CellPhone.Number);
+                evt.AddGuardian(item.Email.Address, "123456", item.CellPhone.Number);
             }
-            _messageBusService.Publish(QueueType.NEW_USER, user);
 
-            BaseResult.response = student.Id;
+            try
+            {
+                idEvent = await _integrationEventLogService.SaveEventAsync(evt);
+
+                await _studentRepository.SaveAsync();
+
+                _messageBusService.Publish(QueueType.NEW_USER, evt);
+
+                await _integrationEventLogService.MarkEventAsPublishedAsync(idEvent);
+
+                BaseResult.response = student.Id;
+            }
+            catch (Exception ex)
+            {
+                await _integrationEventLogService.MarkEventAsNoPublishedAsync(idEvent);
+                AddError("Erro ao publicar menssagem");
+            }
 
             return BaseResult;
         }

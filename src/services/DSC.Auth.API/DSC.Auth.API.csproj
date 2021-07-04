@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\building blocks\DSC.MessageBus\DSC.MessageBus.csproj" />
+    <ProjectReference Include="..\..\building blocks\DSC.IntegrationEventLog\DSC.IntegrationEventLog.csproj" />
     <ProjectReference Include="..\DSC.Auth.Domain\DSC.Auth.Domain.csproj" />
     <ProjectReference Include="..\DSC.Auth.Infrastructure\DSC.Auth.Infrastructure.csproj" />
   </ItemGroup>

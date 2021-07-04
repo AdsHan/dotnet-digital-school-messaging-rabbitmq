@@ -256,6 +256,9 @@ namespace DSC.Student.Infrastructure.Migrations
                     b.Property<Guid?>("AdressId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("AuthCreate")
+                        .HasColumnType("bit");
+
                     b.Property<Guid?>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
@@ -267,6 +270,9 @@ namespace DSC.Student.Infrastructure.Migrations
 
                     b.Property<DateTime?>("DateDeleteAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("EmailAuthSend")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

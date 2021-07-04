@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSC.Auth.Infrastructure.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20210627215715_Criacao-Projeto")]
-    partial class CriacaoProjeto
+    [Migration("20210704010741_Criacao_Projeto")]
+    partial class Criacao_Projeto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

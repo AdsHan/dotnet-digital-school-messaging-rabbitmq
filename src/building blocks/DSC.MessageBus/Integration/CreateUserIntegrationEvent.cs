@@ -9,8 +9,9 @@ namespace DSC.MessageBus.Integration
         public Guid Id { get; set; }
         public List<Guardians> Guardians { get; private set; }
 
-        public CreateUserIntegrationEvent()
+        public CreateUserIntegrationEvent(Guid id)
         {
+            Id = id;
             Guardians = new List<Guardians>();
         }
 
