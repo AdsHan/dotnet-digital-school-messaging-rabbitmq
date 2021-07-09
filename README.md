@@ -20,7 +20,7 @@ Aplicação .Net Core 5.0 Web API desenvolvida com o objetivo didático de demon
 - Testes Unitários com Moq e xUnit (Padrões AAA e Given-When-Then)
 
 # Sobre Microsserviços:
-- O projeto é didático, logo aceita-se que os serviços não tenham BD heterogêneos e que estes persistam no mesmo.
+- O projeto é didático, logo aceita-se que os serviços não tenham BD heterogêneos e que estes persistam no mesmo. 
 
 # Como executar:
 - Clonar / baixar o repositório em seu workplace.
